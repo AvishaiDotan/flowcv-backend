@@ -1,10 +1,10 @@
-const { post, put } = require('../../services/appwrite')
+const { post, put, get, deleteResume  } = require('../../services/appwrite')
 const logger = require('../../services/logger.service')
 
 async function getResumes(req, res) {
     try {
-        const userId = req.params.id
-        const resumes = `Array of resumes objects ${userId}`
+        const userId = '63d9314c63add17d11ee' //req.params.id
+        const resumes = await get(userId)
         res.json(resumes)
     } catch (err) {
         logger.error('Failed to get resumes', err)
@@ -14,9 +14,10 @@ async function getResumes(req, res) {
 
 async function addResume(req, res) {
     try {
-        const userId ='63d9314c63add17d11ee'
+        const userId ='av63d9314c63add17d11ee'
         const resume = {}
-        post(userId, resume)
+
+        const isPosted = await post(userId, resume, true)
 
         logger.info('Successfully Posted Resume', resume)
         res.send('Successfully Posted Resume')
@@ -39,6 +40,20 @@ async function updateResume(req, res) {
         logger.error('Failed update resume', err)
         res.status(500).send({err: `Failed to update resume`})
     }
+}
+async function removeResume(req, res) {
+    try {
+        const userId = '63d9314c63add17d11ee' //req.params.user 
+        const resume = '?'
+
+        deleteResume(userId)
+
+        logger.info('Successfully delete Resume', resume)
+        res.send('Successfully delete resume')
+    } catch (err) {
+        logger.error('Failed delete resume', err)
+        res.status(500).send({err: `Failed to delete resume`})
+    }
 
 }
 
@@ -48,8 +63,8 @@ module.exports = {
     getResumes,
     updateResume,
     addResume,
+    removeResume,
     // updateCar,
-    // removeCar,
     // addCarMsg,
     // removeCarMsg
 }
