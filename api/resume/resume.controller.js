@@ -1,3 +1,4 @@
+const { post, put } = require('../../services/appwrite')
 const logger = require('../../services/logger.service')
 
 async function getResumes(req, res) {
@@ -13,25 +14,30 @@ async function getResumes(req, res) {
 
 async function addResume(req, res) {
     try {
-        const resume = req.body
-        console.log('Added resume to resume array', resume);
-        res.send('Successfully added resume')
-    } catch (err) {
-        logger.error('Failed to get resume', err)
-        res.status(500).send({err: `Failed to get resume`})
-    }
+        const userId ='63d9314c63add17d11ee'
+        const resume = {}
+        post(userId, resume)
 
+        logger.info('Successfully Posted Resume', resume)
+        res.send('Successfully Posted Resume')
+    } catch (err) {
+        logger.error('Failed to post resume', err)
+        res.status(500).send({err: `Failed to post resume`})
+    }
 }
 
 async function updateResume(req, res) {
     try {
-        const resume = req.body
-        const { id } = req.params
-        console.log('Update resume', id, resume);
-        res.send('Successfully Updated resume')
+        const resume = {_id: '39210ce0-a1a0-11ed-8adf-e5f3ac6492a8', data: 'Shalala'} //req.body
+        const userId = '63d9314c63add17d11ee' //req.params.user 
+
+        put(userId, resume)
+
+        logger.info('Successfully Update Resume', resume)
+        res.send('Successfully Update resume')
     } catch (err) {
-        logger.error('Failed to get resume', err)
-        res.status(500).send({err: `Failed to get resume`})
+        logger.error('Failed update resume', err)
+        res.status(500).send({err: `Failed to update resume`})
     }
 
 }
