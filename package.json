@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "appwrite": "^10.2.0",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
+    "node-appwrite": "^8.2.0",
     "uuid": "^9.0.0"
   },
   "scripts": {

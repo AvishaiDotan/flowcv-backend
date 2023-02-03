@@ -1,4 +1,4 @@
-const { post, put, get, deleteResume  } = require('../../services/appwrite')
+const { post, put, get, deleteResume  } = require('./resume.service')
 const logger = require('../../services/logger.service')
 
 async function getResumes(req, res) {
@@ -32,7 +32,7 @@ async function updateResume(req, res) {
         const resume = {_id: '39210ce0-a1a0-11ed-8adf-e5f3ac6492a8', data: 'Shalala'} //req.body
         const userId = '63d9314c63add17d11ee' //req.params.user 
 
-        put(userId, resume)
+        await put(userId, resume)
 
         logger.info('Successfully Update Resume', resume)
         res.send('Successfully Update resume')
@@ -46,7 +46,7 @@ async function removeResume(req, res) {
         const userId = '63d9314c63add17d11ee' //req.params.user 
         const resume = '?'
 
-        deleteResume(userId)
+        await deleteResume(userId)
 
         logger.info('Successfully delete Resume', resume)
         res.send('Successfully delete resume')
@@ -64,7 +64,4 @@ module.exports = {
     updateResume,
     addResume,
     removeResume,
-    // updateCar,
-    // addCarMsg,
-    // removeCarMsg
 }
