@@ -1,12 +1,10 @@
 const { _signup, _isLoggedIn } = require('./user.service')
 
 async function signup(req, res) {
-    const credentials = {
-        username: 'D22222322',
-        password: '1223221121221234234',
-        email: 'd23222222@gmail.com',
-    }//req body
     try {
+        const {credentials} = req.body
+        console.log("🚀 ~ file: user.controller.js:6 ~ signup ~ req.body", req.body)
+        
         const result = await _signup(credentials)
         res.send(result)
     } catch (err) {
@@ -14,7 +12,6 @@ async function signup(req, res) {
         res.status(500).send({err: `Failed to get resumes`})
     }
 }
-
 
 async function isLoggedIn(req, res) {
     console.log('hey');

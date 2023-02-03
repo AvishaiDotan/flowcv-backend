@@ -5,7 +5,9 @@ async function _signup(credentials) {
         const { email, password, username } = credentials
         
         const res = await clientAccount.create(ID.unique(), email, password, username)  
+        console.log("🚀 ~ file: user.service.js:8 ~ _signup ~ res", res)
         const res2 = await clientAccount.createEmailSession(email, password)
+        console.log("🚀 ~ file: user.service.js:10 ~ _signup ~ res2", res2)
         
 
         return res
