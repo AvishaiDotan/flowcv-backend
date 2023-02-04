@@ -21,10 +21,10 @@ if (process.env.NODE_ENV === 'production') {
 
 
 const resumeRoute = require('./api/resume/resume.routes')
-const userRoutes = require('./api/user/user.routes')
+const authRoutes = require('./api/auth/auth.routes')
 
 app.use('/api/resume', resumeRoute);
-app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
 
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
