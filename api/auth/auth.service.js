@@ -1,16 +1,16 @@
-const { sdkAccount, sdkDatabases, sdkClient, sdkUsers, client, account, ID } = require('../../services/appwrite')
-const { info, debug, error, warn } = require('../../services/logger.service')
+const { client, account, ID } = require('../../services/appwrite')
+const { info, error } = require('../../services/logger.service')
 
 const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 10;
+
 async function createUser(credentials) {
     try {
         const { email, username } = credentials
         let { password } = credentials
         
         password = await bcrypt.hash(password, SALT_ROUNDS) 
-        const res = await sdkUsers.createBcryptUser("unique()", email, password, username)       
-        // const res = await sdkUsers.create("unique()", email, null, '12345678', username)      
+        // const res = await sdkUsers.createBcryptUser("unique()", email, password, username)           
 
         info('Created user', res)
         return res
@@ -20,34 +20,13 @@ async function createUser(credentials) {
     }
 }
 
-async function createSession(email, password) {
-    try {
-        const res = await account.createPhoneSession('12312312', '+972502202483')
-
-        bcrypt.getRounds()
-        info('Created session', res)
-        return res
-    } catch (err) {
-        error('Failed to create session', err)
-        throw new Error(err)
-    }
+function setClientJWT(jwt) {
+    client.setJWT(jwt)
+    info('Setting client JWT', client)
 }
 
-async function isSessionExist() {
-    try {
-        const session = await sdkAccount.getSession//account.getSession("current")
-
-        info('Session exists', session)
-        return session
-    } catch (err) {
-        error('Failed to get session', err)
-        throw new Error(err)
-    }
-}
 
 module.exports = {
     createUser,
-    createSession,
-    isSessionExist
-
+    setClientJWT
 }

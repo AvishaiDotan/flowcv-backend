@@ -1,4 +1,4 @@
-const { createSession, createUser, isSessionExist } = require('./auth.service')
+const { createUser, setClientJWT } = require('./auth.service')
 const { info, error} = require('../../services/logger.service')
 
 async function signup(req, res) {
@@ -18,13 +18,13 @@ async function signup(req, res) {
     }
 }
 
-async function _isSessionExist() {
+
+async function setJWT(req, res) {
     try {
-        const res = await isSessionExist()
-        console.log(res);
+        const { jwt } = req.body
+        setClientJWT(jwt)
     } catch (err) {
         console.log(err);
-        throw new Error(err)
     }
 }
 
@@ -32,6 +32,5 @@ async function _isSessionExist() {
 
 module.exports = {
     signup,
-    _isSessionExist
-
+    setJWT
 }

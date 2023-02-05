@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-const { signup, _isSessionExist } = require('./auth.controller')
+const { signup, setJWT } = require('./auth.controller')
 
+router.post('/setJWT', setJWT)
 router.post('/signup', signup)
-router.post('/login', _isSessionExist)
 
 module.exports = router
