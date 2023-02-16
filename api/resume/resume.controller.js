@@ -57,8 +57,6 @@ async function removeResume(req, res) {
 
 }
 
-
-
 module.exports = {
     getResumes,
     updateResume,
